@@ -5,6 +5,20 @@ var searchBtnEL = document.querySelector("#search");
 var toJSON = function(response){
     return response.json();
 };
+var getBrewList = function(data){
+    displayResults(data)
+    console.log(today);
+    getSportList();
+}
+var getSportList = function(){
+    var sportsURL = `https://www.thesportsdb.com/api/v1/json/50130162/eventstv.php?d=${today}&s=${encodeURIComponent("American Football")}`;
+    fetch(sportsURL)
+    .then(toJSON)
+    .then(function(data){
+        console.log(data)
+        // displaySports(data)
+    });
+}
 var displayResults = function(data){
     console.log(data)
     var resultsEl = document.getElementById("resultsBin");
@@ -34,16 +48,32 @@ var displayResults = function(data){
         resultsItemTextEl.appendChild(breweryURLEl);
     }  
 }
+var displaySports = function(sportsData){
+ console.log(sportsData);
+ var sportsEl = document.getElementById("sportsBin");
+ sportsEl.innerHTML = null;
+ for (var i=0; i<sportsData.length; i++) {
+    var sportsItemEl = document.createElement("div"); 
+    var sportsTitleEl = document.createElement("h3"); 
+    var sportsLeagueEl = document.createElement("p"); 
+    var sportsTypeEl = document.createElement("p"); 
+    var sportsDateEl = document.createElement("p"); 
+    sportsTitleEl.textContent = sportsData[i].strEventAlternate;
+    sportsLeagueEl.textContent = sportsData[i].strLeague;
+    sportsTypeEl.textContent = sportsData[i].strSport;
+    sportsDateEl.textContent = sportsData[i].dateEvent;
+    sportsEl.appendChild(sportsItemEl);
+    sportsItemEl.appendChild(sportsLeagueEl);
+    sportsItemEl.appendChild(sportsTypeEl);
+    sportsItemEl.appendChild(sportsDateEl);
+    
+ }
+}
+
 var brewURL = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
-var sportsURL = `https://www.thesportsdb.com/api/v1/json/50130162/eventstv.php?d=${today}&s=${encodeURIComponent("American Football")}`;
-fetch(sportsURL)
-    .then(toJSON)
-    .then(function(data){
-        console.log(data)
-    });
+
+
 fetch(brewURL)
     .then(toJSON)
-    .then(function(data){
-        displayResults(data)
-        console.log(today);
-    });
+    .then(getBrewList);
+displaySports();
