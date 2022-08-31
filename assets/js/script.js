@@ -1,5 +1,6 @@
 var city = "Charlotte";
 var sportKey = "50130162";
+var today = moment().add(11,"day").format("YYYY-MM-DD");
 var searchBtnEL = document.querySelector("#search");
 var toJSON = function(response){
     return response.json();
@@ -34,8 +35,15 @@ var displayResults = function(data){
     }  
 }
 var brewURL = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
+var sportsURL = `https://www.thesportsdb.com/api/v1/json/50130162/eventstv.php?d=${today}&s=${encodeURIComponent("American Football")}`;
+fetch(sportsURL)
+    .then(toJSON)
+    .then(function(data){
+        console.log(data)
+    });
 fetch(brewURL)
     .then(toJSON)
     .then(function(data){
         displayResults(data)
+        console.log(today);
     });
