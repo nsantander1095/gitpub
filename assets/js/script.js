@@ -13,27 +13,40 @@ var displayBreweryResults = function (data) {
   for (var i = 0; i < data.length; i++) {
     var resultsItemEl = document.createElement("div");
     var resultsItemBodyEl = document.createElement("div");
+    var resultsBtnEl = document.createElement("button");
     var resultsItemTextEl = document.createElement("div");
     var breweryNameEl = document.createElement("h3");
     var breweryAddressEl = document.createElement("p");
     var breweryPhoneEl = document.createElement("p");
     var breweryURLEl = document.createElement("p");
+    var iconEl = document.createElement("i");
+
     breweryNameEl.textContent = data[i].name;
     breweryAddressEl.textContent =
       "Address: " + data[i].street + " " + data[i].city + " " + data[i].state;
     breweryPhoneEl.textContent = "Phone Number: " + data[i].phone;
     breweryURLEl.textContent = "Web Site: " + data[i].website_url;
+    iconEl.className = "fas fa-bookmark";
     resultsItemEl.className = "card mb-3";
     resultsItemBodyEl.className = "card-body";
     breweryNameEl.className = "card-title";
+    resultsBtnEl.className = "btn btn-warning";
     resultsItemTextEl.className = "card-text";
+
+    resultsBtnEl.setAttribute("data-brew-id", data[i].id);
+    resultsBtnEl.setAttribute("data-brew-name", data[i].name);
+
     resultsEl.appendChild(resultsItemEl);
     resultsItemEl.appendChild(resultsItemBodyEl);
+
     resultsItemBodyEl.appendChild(breweryNameEl);
     resultsItemBodyEl.appendChild(resultsItemTextEl);
     resultsItemTextEl.appendChild(breweryAddressEl);
     resultsItemTextEl.appendChild(breweryPhoneEl);
     resultsItemTextEl.appendChild(breweryURLEl);
+    resultsItemTextEl.appendChild(resultsBtnEl);
+
+    resultsBtnEl.appendChild(iconEl);
   }
 };
 
@@ -68,6 +81,7 @@ var displayFavBreweries = function () {
 };
 
 var savedToLocalStorage = function (breweryList) {
+  console.log(breweryList);
   var breweries = JSON.parse(localStorage.getItem("breweries")) || [];
   breweries.push(breweryList.id);
   var brewSet = Array.from(new Set(breweries));
@@ -109,19 +123,35 @@ var searchHandler = function (event) {
   }
 };
 
+var saveHandler = function (event) {
+  if (event.target.matches("button")) {
+    var brewId = event.target.getAttribute("data-brew-id");
+    var brewName = event.target.getAttribute("data-brew-name");
+    console.log(brewId, brewName);
+    var breweries = JSON.parse(localStorage.getItem("breweries")) || [];
+    breweries.push(brewId);
+    var brewSet = Array.from(new Set(breweries));
+    var data = JSON.stringify(brewSet);
+    localStorage.setItem("breweries", data);
+    console.log(brewSet);
+  }
+};
+
 var previousHandler = function (event) {
   event.preventDefault();
-  var brewId = event.target.textContent;
-  var singBrewURL = `https://api.openbrewerydb.org/breweries/${brewId}`;
+  if (event.target.matches("button")) {
+    var brewId = event.target.textContent;
+    var singBrewURL = `https://api.openbrewerydb.org/breweries/${brewId}`;
 
-  fetch(singBrewURL)
-    .then(toJSON)
-    .then((breweryList) => {
-      console.log(breweryList);
-      savedToLocalStorage(breweryList);
-      getSportList();
-      displayBreweryResults(breweryList);
-    });
+    fetch(singBrewURL)
+      .then(toJSON)
+      .then((breweryList) => {
+        console.log(breweryList);
+        savedToLocalStorage(breweryList);
+        getSportList();
+        displayBreweryResults(breweryList);
+      });
+  }
 };
 
 // var init = function (data) {
@@ -129,7 +159,9 @@ var previousHandler = function (event) {
 // };
 
 searchBtnEL.addEventListener("click", searchHandler);
-//savedBreweries.addEventListener("click", previousHandler);
+resultsBin.addEventListener("click", saveHandler);
+savedBreweriesEl.addEventListener("click", previousHandler);
 //searchBtnEL.addEventListener("click", searchHandler);
 
 //init();
+displayFavBreweries();
