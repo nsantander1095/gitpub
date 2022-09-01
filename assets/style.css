@@ -5,15 +5,15 @@
 } */ 
 
 body {
-    height: 100vh;
+    height: 100%;
 }
    
 
 main {
     background-image: url(./images/brewery-gray-background.jpg);
     background-repeat: no-repeat;
-    /* max-height: 100vh; */
-    height: 100%;
+    height: 100vh;
+    
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -39,4 +39,12 @@ main {
 
 label {
     font-size: 2rem;
+}
+
+#result-style {
+    color: white;
+}
+
+#sportsBin {
+    color: white;
 }
