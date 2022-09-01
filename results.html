@@ -16,7 +16,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-dark bg-dark">
+        <!-- <nav class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
@@ -38,7 +38,16 @@
                   </ul>   
               </div>
             </div>
-          </nav>
+          </nav> -->
+          <div class="jumbotron">
+            <h1 class="display-4">GitPub</h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </p>
+          </div>
         </header>
 
         <main class="container-fluid">
@@ -48,12 +57,13 @@
                         <form>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Search</label>
-                                <input type="email" class="form-control" id="cityInput"
+                                <input type="text" class="form-control" id="cityInput"
                                     aria-describedby="emailHelp" placeholder="Enter City">
                                 <small id="emailHelp" class="form-text text-muted">Must be cities in U.S.</small>
                             </div>
                             <button id="search" type="submit" class="btn btn-primary">Submit</button>
                         </form>
+                        <hr class="my-2">
                         <div id="savedBreweries">
 
                         </div>

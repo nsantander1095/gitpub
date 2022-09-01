@@ -125,7 +125,7 @@ var getSportList = function () {
 };
 
 var gitBrewery = function (city) {
-  var brewURL = `https://api.openbrewerydb.org/breweries?by_city=${city.value}`;
+  var brewURL = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
 
   fetch(brewURL)
     .then(toJSON)
@@ -138,10 +138,11 @@ var gitBrewery = function (city) {
 
 var indexSearchHandler = function (event) {
     event.preventDefault();
-    if (event.target.matches("#search")) {
-        inputCity = document.querySelector('#cityInput');
-        window.location.replace('./results.html');
-    }
+    // if (event.target.matches("#search")) {
+        inputCity = document.querySelector('#cityInput').value;
+        console.log(inputCity)
+        window.location.replace('results.html?cityInput='+inputCity);
+    // }
 }
 
 var searchHandler = function (event) {
@@ -184,24 +185,31 @@ var previousHandler = function (event) {
 
 var url = new URL(document.location.href);
 
+console.log(url)
+
 if (
-    url.pathname.includes('results') && 
-    url.searchParams.get('cityInput')
+    url.pathname.includes('results')
 ) {
     var cityInput = url.searchParams.get('cityInput');
+    console.log(cityInput);
     searchBtnEL.addEventListener("click", searchHandler);
     resultsBin.addEventListener("click", saveHandler);
     savedBreweriesEl.addEventListener("click", previousHandler);
     displayFavBreweries();
+
+    if(url.searchParams.get('cityInput')){
+        gitBrewery(cityInput);
+    }
 }
 
-if (
+else if (
     url.pathname.includes('index')
 ) {
+    console.log("on index page")
     searchBtnEL.addEventListener('click', indexSearchHandler)
 }
 // searchBtnEL.addEventListener("click", searchHandler);
 // resultsBin.addEventListener("click", saveHandler);
 // savedBreweriesEl.addEventListener("click", previousHandler);
 
-//displayFavBreweries();
+// displayFavBreweries();
