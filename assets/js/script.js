@@ -136,6 +136,14 @@ var gitBrewery = function (city) {
     });
 };
 
+var indexSearchHandler = function (event) {
+    event.preventDefault();
+    if (event.target.matches("#search")) {
+        inputCity = document.querySelector('#cityInput');
+        window.location.replace('./results.html');
+    }
+}
+
 var searchHandler = function (event) {
   event.preventDefault();
   if (event.target.matches("#search")) {
@@ -170,19 +178,30 @@ var previousHandler = function (event) {
         console.log(brewerySing);
         getSportList();
         displayPrevBrewery(brewerySing);
-        //displayBreweryResults(breweryList);
       });
   }
 };
 
-// var init = function (data) {
-//   gitBrewery(inputCity);
-// };
+var url = new URL(document.location.href);
 
-searchBtnEL.addEventListener("click", searchHandler);
-resultsBin.addEventListener("click", saveHandler);
-savedBreweriesEl.addEventListener("click", previousHandler);
-//searchBtnEL.addEventListener("click", searchHandler);
+if (
+    url.pathname.includes('results') && 
+    url.searchParams.get('cityInput')
+) {
+    var cityInput = url.searchParams.get('cityInput');
+    searchBtnEL.addEventListener("click", searchHandler);
+    resultsBin.addEventListener("click", saveHandler);
+    savedBreweriesEl.addEventListener("click", previousHandler);
+    displayFavBreweries();
+}
 
-//init();
-displayFavBreweries();
+if (
+    url.pathname.includes('index')
+) {
+    searchBtnEL.addEventListener('click', indexSearchHandler)
+}
+// searchBtnEL.addEventListener("click", searchHandler);
+// resultsBin.addEventListener("click", saveHandler);
+// savedBreweriesEl.addEventListener("click", previousHandler);
+
+//displayFavBreweries();
