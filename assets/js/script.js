@@ -2,6 +2,7 @@ var inputCity = "";
 var sportKey = "50130162";
 var today = moment().add(11, "day").format("YYYY-MM-DD");
 var searchBtnEL = document.querySelector("#search");
+var savedBreweriesEl = document.querySelector("#savedBreweries");
 var toJSON = function (response) {
   return response.json();
 };
@@ -55,6 +56,26 @@ var displaySports = function (data) {
   }
 };
 
+var displayFavBreweries = function () {
+  var breweries = JSON.parse(localStorage.getItem("breweries")) || [];
+  savedBreweriesEl.innerHTML = null;
+  for (var brewery of breweries) {
+    var breweryButtonEl = document.createElement("button");
+    breweryButtonEl.textContent = brewery;
+    breweryButtonEl.className = "btn btn-danger mb-3";
+    savedBreweriesEl.appendChild(breweryButtonEl);
+  }
+};
+
+var savedToLocalStorage = function (breweryList) {
+  var breweries = JSON.parse(localStorage.getItem("breweries")) || [];
+  breweries.push(breweryList.id);
+  var brewSet = Array.from(new Set(breweries));
+  var data = JSON.stringify(brewSet);
+  localStorage.setItem("breweries", data);
+  displayFavBreweries();
+};
+
 var getSportList = function () {
   var sportsURL = `https://www.thesportsdb.com/api/v1/json/50130162/eventstv.php?d=${today}&s=${encodeURIComponent(
     "American Football"
@@ -74,6 +95,7 @@ var gitBrewery = function (city) {
     .then(toJSON)
     .then((breweryList) => {
       console.log(breweryList);
+      savedToLocalStorage(breweryList);
       getSportList();
       displayBreweryResults(breweryList);
     });
@@ -89,6 +111,17 @@ var searchHandler = function (event) {
 
 var previousHandler = function (event) {
   event.preventDefault();
+  var brewId = event.target.textContent;
+  var singBrewURL = `https://api.openbrewerydb.org/breweries/${brewId}`;
+
+  fetch(singBrewURL)
+    .then(toJSON)
+    .then((breweryList) => {
+      console.log(breweryList);
+      savedToLocalStorage(breweryList);
+      getSportList();
+      displayBreweryResults(breweryList);
+    });
 };
 
 // var init = function (data) {
@@ -96,7 +129,7 @@ var previousHandler = function (event) {
 // };
 
 searchBtnEL.addEventListener("click", searchHandler);
-savedBreweries.addEventListener("click", previousHandler);
-searchBtnEL.addEventListener("click", searchHandler);
+//savedBreweries.addEventListener("click", previousHandler);
+//searchBtnEL.addEventListener("click", searchHandler);
 
 //init();
