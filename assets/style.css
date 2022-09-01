@@ -2,8 +2,49 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-} */
+} */ 
 
-/* body {
-    background: yellow;
-} */
+body {
+    height: 100%;
+}
+   
+
+main {
+    background-image: url(./images/brewery-gray-background.jpg);
+    background-repeat: no-repeat;
+    height: 100vh;
+    
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#jumbotron-body {
+    background-image: url("./images/wood-background.jpg");
+    height: 200px;
+}
+
+#logo {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.lead {
+    margin-left: 13px;
+}
+
+.jumbotron {
+    background: pink;
+}
+
+label {
+    font-size: 2rem;
+}
+
+#result-style {
+    color: white;
+}
+
+#sportsBin {
+    color: white;
+}
