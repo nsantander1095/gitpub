@@ -69,12 +69,12 @@ var displaySports = function (data) {
   }
 };
 
-var displayFavBreweries = function () {
+var displayFavBreweries = function (brewName) {
   var breweries = JSON.parse(localStorage.getItem("breweries")) || [];
   savedBreweriesEl.innerHTML = null;
   for (var brewery of breweries) {
     var breweryButtonEl = document.createElement("button");
-    breweryButtonEl.textContent = brewery;
+    breweryButtonEl.textContent = brewName;
     breweryButtonEl.className = "btn btn-danger mb-3";
     savedBreweriesEl.appendChild(breweryButtonEl);
   }
@@ -83,7 +83,7 @@ var displayFavBreweries = function () {
 var savedToLocalStorage = function (breweryList) {
   console.log(breweryList);
   var breweries = JSON.parse(localStorage.getItem("breweries")) || [];
-  breweries.push(breweryList.id);
+//   breweries.push(breweryList.id);
   var brewSet = Array.from(new Set(breweries));
   var data = JSON.stringify(brewSet);
   localStorage.setItem("breweries", data);
@@ -134,6 +134,7 @@ var saveHandler = function (event) {
     var data = JSON.stringify(brewSet);
     localStorage.setItem("breweries", data);
     console.log(brewSet);
+    displayFavBreweries(brewName);
   }
 };
 
