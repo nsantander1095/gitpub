@@ -4,8 +4,10 @@
     box-sizing: border-box;
 } */ 
 
-/* body { */
-    /* background: yellow; */
+body {
+    height: 100vh;
+}
+   
 
 main {
     background-image: url(./images/brewery-gray-background.jpg);
@@ -14,6 +16,7 @@ main {
     height: 100%;
     background-position: center;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 #jumbotron-body {
@@ -32,4 +35,8 @@ main {
 
 .jumbotron {
     background: pink;
+}
+
+label {
+    font-size: 2rem;
 }
