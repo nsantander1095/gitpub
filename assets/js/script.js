@@ -1,4 +1,4 @@
-var inputCity = "Charlotte";
+var inputCity = "";
 var sportKey = "50130162";
 var today = moment().add(11, "day").format("YYYY-MM-DD");
 var searchBtnEL = document.querySelector("#search");
@@ -51,7 +51,6 @@ var displaySports = function (data) {
     sportsItemEl.appendChild(sportsTitleEl);
     //sportsItemEl.appendChild(sportsLeagueEl);
     sportsItemEl.appendChild(sportsTypeEl);
-    sportsItemEl.appendChild(sportsDateEl);
     sportsEl.appendChild(sportsItemEl);
   }
 };
@@ -69,7 +68,7 @@ var getSportList = function () {
 };
 
 var gitBrewery = function (city) {
-  var brewURL = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
+  var brewURL = `https://api.openbrewerydb.org/breweries?by_city=${city.value}`;
 
   fetch(brewURL)
     .then(toJSON)
@@ -80,8 +79,24 @@ var gitBrewery = function (city) {
     });
 };
 
-var init = function (data) {
-  gitBrewery(inputCity);
+var searchHandler = function (event) {
+  event.preventDefault();
+  if (event.target.matches("#search")) {
+    inputCity = document.querySelector("#cityInput");
+    gitBrewery(inputCity);
+  }
 };
 
-init();
+var previousHandler = function (event) {
+  event.preventDefault();
+};
+
+// var init = function (data) {
+//   gitBrewery(inputCity);
+// };
+
+searchBtnEL.addEventListener("click", searchHandler);
+savedBreweries.addEventListener("click", previousHandler);
+searchBtnEL.addEventListener("click", searchHandler);
+
+//init();
