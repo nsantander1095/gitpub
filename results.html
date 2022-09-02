@@ -16,33 +16,9 @@
 
 <body>
     <header>
-        <!-- <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-                <div class="offcanvas-header">
-                  <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
-                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>              
-                  </ul>   
-              </div>
-            </div>
-          </nav> -->
         <div class="jumbotron jumbotron-fluid m-0">
             <div id="jumbotron-body">
                 <img id="logo" alt="logo" src="./assets/images/translucent.png" style="max-width: 18rem;">
-                <!-- <h1 class="display-1">GitPub</h1> -->
                 <p class="lead">A better brewery search.</p>
             </div>
         </div>
@@ -61,6 +37,7 @@
                         <button id="search" type="submit" class="btn btn-dark">Search</button>
                     </form>
                     <hr class="my-2">
+                    <!-- this is where we are adding the saved breweries as buttons -->
                     <div id="savedBreweries">
 
                     </div>
@@ -68,14 +45,16 @@
             </div>
             <div class="col-12 col-lg-7 mt-3">
                 <h2 id="result-style">Your Search Results</h2>
+                <!-- this is where we add the results for the search -->
                 <section id="resultsBin" class="col-lg-12">
 
 
                 </section>
-                <!-- <section class="col-lg-12 card"><h2>BEER</h2></section> -->
+
             </div>
             <div class="col-lg-3 mt-3">
                 <h3 id="result-style">Football on Today</h3>
+                <!-- space for the sporting events for the day -->
                 <section id="sportsBin" class="col-lg-12">
 
                 </section>
