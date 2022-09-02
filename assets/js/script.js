@@ -31,7 +31,7 @@ var displayBreweryResults = function (data) {
     resultsItemEl.className = "card mb-3";
     resultsItemBodyEl.className = "card-body";
     breweryNameEl.className = "card-title";
-    resultsBtnEl.className = "btn btn-warning";
+    resultsBtnEl.className = "btn btn-warning btn-lg";
     resultsItemTextEl.className = "card-text";
 
     resultsBtnEl.setAttribute("data-brew-id", data[i].id);
@@ -77,7 +77,7 @@ var displayFavBreweries = function () {
     var breweryButtonEl = document.createElement("button");
     breweryButtonEl.textContent = breweries[id];
     breweryButtonEl.id = id;
-    breweryButtonEl.className = "btn btn-danger mb-3";
+    breweryButtonEl.className = "btn btn-danger mb-3 btn-block col-12 mx-auto";
     savedBreweriesEl.appendChild(breweryButtonEl);
   }
 };
