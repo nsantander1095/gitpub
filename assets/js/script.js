@@ -1,6 +1,8 @@
 var inputCity = "";
 var sportKey = "50130162";
-var today = moment().add(10, "day").format("YYYY-MM-DD");
+// this line below was to offset the days so that we could display the data
+// var today = moment().add(10, "day").format("YYYY-MM-DD");
+var today = moment().format("YYYY-MM-DD");
 var searchBtnEL = document.querySelector("#search");
 var savedBreweriesEl = document.querySelector("#savedBreweries");
 var toJSON = function (response) {
@@ -24,7 +26,7 @@ var displayBreweryResults = function (data) {
 
     breweryNameEl.textContent = data[i].name;
     breweryAddressEl.textContent =
-      "Address: " + data[i].street + " " + data[i].city + " " + data[i].state;
+      "Address: " + data[i].street + " " + data[i].city + ", " + data[i].state;
     breweryPhoneEl.textContent = "Phone Number: " + data[i].phone;
     breweryURLEl.textContent = "Web Site: " + data[i].website_url;
     iconEl.className = "fas fa-bookmark";
