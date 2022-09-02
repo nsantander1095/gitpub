@@ -6,17 +6,16 @@
 
 body {
     height: 100%;
+    background-image: url(./images/brewery-gray-background.jpg);
+    background-repeat: no-repeat;
+    background-position: fixed;
+    background-size: cover;
+    background-attachment: fixed;
 }
    
 
 main {
-    background-image: url(./images/brewery-gray-background.jpg);
-    background-repeat: no-repeat;
-    height: 100vh;
-    
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
+    min-height: 100vh;
 }
 
 #jumbotron-body {
