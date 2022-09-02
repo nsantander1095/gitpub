@@ -6,7 +6,7 @@ var savedBreweriesEl = document.querySelector("#savedBreweries");
 var toJSON = function (response) {
   return response.json();
 };
-
+// generates all of the elements on the fly for the search results
 var displayBreweryResults = function (data) {
   var resultsEl = document.getElementById("resultsBin");
   resultsEl.innerHTML = null;
@@ -50,7 +50,7 @@ var displayBreweryResults = function (data) {
     resultsBtnEl.appendChild(iconEl);
   }
 };
-
+// generates the sporting events on the right side of the page
 var displaySports = function (data) {
   var sportsEl = document.getElementById("sportsBin");
   sportsEl.innerHTML = null;
@@ -69,7 +69,7 @@ var displaySports = function (data) {
     sportsEl.appendChild(sportsItemEl);
   }
 };
-
+// renders the saved breweries as buttons on the left
 var displayFavBreweries = function () {
   var breweries = JSON.parse(localStorage.getItem("breweries")) || {};
   savedBreweriesEl.innerHTML = null;
@@ -81,7 +81,7 @@ var displayFavBreweries = function () {
     savedBreweriesEl.appendChild(breweryButtonEl);
   }
 };
-
+// generates the information for an individul brewery when clicking a fave button
 var displayPrevBrewery = function (data) {
   var resultsEl = document.getElementById("resultsBin");
   resultsEl.innerHTML = null;
@@ -110,7 +110,7 @@ var displayPrevBrewery = function (data) {
   breweryItemTextEl.appendChild(breweryPhoneEl);
   breweryItemTextEl.appendChild(breweryURLEl);
 };
-
+//
 var getSportList = function () {
   var sportsURL = `https://www.thesportsdb.com/api/v1/json/50130162/eventstv.php?d=${today}&s=${encodeURIComponent(
     "American Football"
@@ -200,7 +200,7 @@ if (url.pathname.includes("results")) {
   if (url.searchParams.get("city")) {
     gitBrewery(cityInput);
   }
-} else if (url.pathname.includes("index")) {
+} else {
   console.log("on index page");
   searchBtnEL.addEventListener("click", indexSearchHandler);
 }
