@@ -58,13 +58,10 @@ var displaySports = function (data) {
   for (var i = 0; i < sportsData.length; i++) {
     var sportsItemEl = document.createElement("div");
     var sportsTitleEl = document.createElement("h4");
-    //var sportsLeagueEl = document.createElement("p");
     var sportsTypeEl = document.createElement("p");
     sportsTitleEl.textContent = sportsData[i].strEvent;
-    //sportsLeagueEl.textContent = sportsData[i].strLeague;
     sportsTypeEl.textContent = sportsData[i].strSport;
     sportsItemEl.appendChild(sportsTitleEl);
-    //sportsItemEl.appendChild(sportsLeagueEl);
     sportsItemEl.appendChild(sportsTypeEl);
     sportsEl.appendChild(sportsItemEl);
   }
@@ -110,7 +107,7 @@ var displayPrevBrewery = function (data) {
   breweryItemTextEl.appendChild(breweryPhoneEl);
   breweryItemTextEl.appendChild(breweryURLEl);
 };
-//
+// fetch for sportsdb api
 var getSportList = function () {
   var sportsURL = `https://www.thesportsdb.com/api/v1/json/50130162/eventstv.php?d=${today}&s=${encodeURIComponent(
     "American Football"
@@ -122,7 +119,7 @@ var getSportList = function () {
       displaySports(tvEvents);
     });
 };
-
+// fetch for openbrewery api
 var gitBrewery = function (city) {
   var brewURL = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
 
@@ -134,7 +131,7 @@ var gitBrewery = function (city) {
       displayBreweryResults(breweryList);
     });
 };
-
+// handler for the search button on index page
 var indexSearchHandler = function (event) {
   event.preventDefault();
   // if (event.target.matches("#search")) {
@@ -143,18 +140,18 @@ var indexSearchHandler = function (event) {
   window.location.replace("results.html?city=" + inputCity);
   // }
 };
-
+// handler for the search button on results page
 var searchHandler = function (event) {
   event.preventDefault();
   if (event.target.matches("#search")) {
     inputCity = document.querySelector("#cityInput").value;
     var url = new URL(document.location.href);
-    url.searchParams.set('city', inputCity);
+    url.searchParams.set("city", inputCity);
     history.pushState({}, null, url.toString());
     gitBrewery(inputCity);
   }
 };
-
+// handler for the save feature on bookmark click
 var saveHandler = function (event) {
   if (event.target.matches("button")) {
     var id = event.target.getAttribute("data-brew-id");
@@ -167,7 +164,7 @@ var saveHandler = function (event) {
     displayFavBreweries();
   }
 };
-
+// handler for click on button element of saved breweries
 var previousHandler = function (event) {
   event.preventDefault();
   if (event.target.matches("button")) {
@@ -184,7 +181,7 @@ var previousHandler = function (event) {
       });
   }
 };
-
+// everything under here is to manage url pathing and event listeners
 var url = new URL(document.location.href);
 
 console.log(url);
@@ -204,6 +201,8 @@ if (url.pathname.includes("results")) {
   console.log("on index page");
   searchBtnEL.addEventListener("click", indexSearchHandler);
 }
+
+//these are still here to make sure that we can toggle functionality when not using the url paths
 // searchBtnEL.addEventListener("click", searchHandler);
 // resultsBin.addEventListener("click", saveHandler);
 // savedBreweriesEl.addEventListener("click", previousHandler);
